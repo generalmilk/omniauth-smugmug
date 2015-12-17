@@ -7,9 +7,9 @@ module OmniAuth
       option :name, 'smugmug'
       option :client_options, {
         :site => 'http://api.smugmug.com',
-        :request_token_path => "/services/oauth/getRequestToken.mg",
-        :access_token_path  => "/services/oauth/getAccessToken.mg",
-        :authorize_path     => "/services/oauth/authorize.mg"
+        :request_token_path => "/services/oauth/1.0a/getRequestToken",
+        :access_token_path  => "/services/oauth/1.0a/getAccessToken",
+        :authorize_path     => "/services/oauth/1.0a/authorize"
       }
 
       uid { user['id'] }
