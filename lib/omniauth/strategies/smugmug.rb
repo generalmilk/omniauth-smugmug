@@ -6,7 +6,7 @@ module OmniAuth
     class SmugMug < OmniAuth::Strategies::OAuth
       option :name, 'smugmug'
       option :client_options, {
-        :site => 'http://api.smugmug.com',
+        :site => 'https://api.smugmug.com',
         :request_token_path => "/services/oauth/1.0a/getRequestToken",
         :access_token_path  => "/services/oauth/1.0a/getAccessToken",
         :authorize_path     => "/services/oauth/1.0a/authorize"
@@ -30,7 +30,7 @@ module OmniAuth
       end
 
       def user
-        @user_hash ||= MultiJson.decode(@access_token.get('http://api.smugmug.com/services/api/json/1.2.2/?method=smugmug.auth.checkAccessToken').body)['Auth']['User']
+        @user_hash ||= MultiJson.decode(@access_token.get('https://api.smugmug.com/services/api/json/1.2.2/?method=smugmug.auth.checkAccessToken').body)['Auth']['User']
 #         @user_hash ||= MultiJson.decode(@access_token.get('/api/v2!authuser',header={'accept'=>'application/json'}).body)['Response']['User']
       end
 
