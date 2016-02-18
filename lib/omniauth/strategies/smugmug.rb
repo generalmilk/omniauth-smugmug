@@ -26,14 +26,21 @@ module OmniAuth
       end
 
       extra do
-        { 'user_hash' => user }
+        { 'raw_info' => user }
       end
 
       def user
-        @user_hash ||= MultiJson.decode(@access_token.get('https://api.smugmug.com/services/api/json/1.2.2/?method=smugmug.auth.checkAccessToken').body)['Auth']['User']
+        @user_hash ||= MultiJson.decode(@access_token.get('https://api.smugmug.com/services/api/json/1.3.0/?method=smugmug.auth.checkAccessToken').body)['Auth']['User']
 #         @user_hash ||= MultiJson.decode(@access_token.get('/api/v2!authuser',header={'accept'=>'application/json'}).body)['Response']['User']
       end
-
+      def request_phase
+        if options[:access] or options[:permissions]
+          options[:authorize_params] = {}
+          options[:authorize_params][:Access] = options[:access] if options[:access]
+          options[:authorize_params][:Permissions] = options[:permissions] if options[:permissions]
+        end
+        super
+      end
     end
   end
 end
